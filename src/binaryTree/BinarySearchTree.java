@@ -148,6 +148,24 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
         return Math.max(maxPar(node.rightSon, max), maxPar(node.leftSon, max));
     }
+    public Node<E> getNode(Node<E> nodo, E elemento) {
+
+        Node<E> aux = null;
+
+        if (nodo.getElement().compareTo(elemento) == 0) {
+            aux = nodo;
+        } else {
+            if (nodo.leftSon != null) {
+                aux = getNode(nodo.leftSon, elemento);
+            }
+
+            if (nodo.rightSon != null) {
+                aux = getNode(nodo.rightSon, elemento);
+            }
+        }
+
+        return aux;
+    }
     
     /**
      * Inner class of nodes of the Binary Search Tree
