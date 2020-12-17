@@ -148,23 +148,32 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
         return Math.max(maxPar(node.rightSon, max), maxPar(node.leftSon, max));
     }
-    public Node<E> getNode(Node<E> nodo, E elemento) {
-
-        Node<E> aux = null;
-
-        if (nodo.getElement().compareTo(elemento) == 0) {
-            aux = nodo;
-        } else {
-            if (nodo.leftSon != null) {
-                aux = getNode(nodo.leftSon, elemento);
+    
+    private Node<E> getNode(E elemento) {
+        return getNode(root, elemento);
+    }
+    
+    private Node<E> getNode(Node<E> node, E element) {
+        if (node != null) {
+            if (node.element.equals(element)) {
+                return node;
             }
-
-            if (nodo.rightSon != null) {
-                aux = getNode(nodo.rightSon, elemento);
+            if (element.compareTo(node.getElement()) > 0) {
+                return getNode(node.getRightSon(), element);
+            }else{
+                return getNode(node.getLeftSon(), element);
             }
         }
-
-        return aux;
+        return null;
+    }
+    
+    public int getDistance(E element1, E element2){
+        Node<E> p = getNode(element1);
+        return getDistance(p, element2);
+    }
+    
+    private int getDistance(Node<E> p, E element2){
+        return 0;
     }
     
     /**
