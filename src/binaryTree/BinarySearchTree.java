@@ -96,6 +96,59 @@ public class BinarySearchTree<E extends Comparable<E>> {
         }
     }
     
+    public BinarySearchTree<E> espejo(){
+        BinarySearchTree<E> tree = new BinarySearchTree();
+        tree.root = espejo(root);
+        return tree;
+    }
+    
+    private Node<E> espejo(Node<E> p) {
+        if (p == null) return null;
+        Node<E> temp = p.leftSon;
+        Node<E> nodo = espejo(p.rightSon);
+        p.leftSon = nodo;
+        if(nodo != null)
+            nodo.parent=p;
+        nodo = espejo(temp);
+        p.rightSon=nodo;
+        if(nodo != null)
+            nodo.parent = p;
+        return p;
+    }
+    
+    public boolean isMirror(BinarySearchTree<E> tree) {
+        return this.equals(tree.espejo());
+    }
+    
+    public int sumaPar() {
+        return sumaPar((Node<Integer>) root, 0);
+    }
+    
+    private int sumaPar(Node<Integer> node, int acum){
+        if (node == null) {
+            return 0;
+        }
+        if (node.element % 2 == 0) {
+            acum += node.element; 
+        }
+        return acum + sumaPar(node.leftSon, acum) + sumaPar(node.rightSon, acum);
+    }
+    
+    public int maxPar() {
+        return maxPar((Node<Integer>) root, Integer.MIN_VALUE);
+    }
+    
+    private int maxPar(Node<Integer> node, int max){
+        if (node == null) {
+            return max;
+        }
+        boolean esPar = (node.element % 2) == 0;
+        if (esPar && node.element > max) {
+            max = node.element;
+        }
+        return Math.max(maxPar(node.rightSon, max), maxPar(node.leftSon, max));
+    }
+    
     /**
      * Inner class of nodes of the Binary Search Tree
      * @param <E> Element
