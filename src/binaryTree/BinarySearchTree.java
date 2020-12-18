@@ -153,15 +153,15 @@ public class BinarySearchTree<E extends Comparable<E>> {
         return getNode(root, elemento);
     }
     
-    private Node<E> getNode(Node<E> node, E element) {
-        if (node != null) {
-            if (node.element.equals(element)) {
-                return node;
+    private Node<E> getNode(Node<E> p, E element) {
+        if (p != null) {
+            if (p.element.equals(element)) {
+                return p;
             }
-            if (element.compareTo(node.getElement()) > 0) {
-                return getNode(node.getRightSon(), element);
+            if (element.compareTo(p.getElement()) > 0) {
+                return getNode(p.getRightSon(), element);
             }else{
-                return getNode(node.getLeftSon(), element);
+                return getNode(p.getLeftSon(), element);
             }
         }
         return null;
@@ -173,8 +173,25 @@ public class BinarySearchTree<E extends Comparable<E>> {
     }
     
     private int getDistance(Node<E> p, E element2){
-        return 0;
+        /*if (p != null) {
+            if (p.element) {
+                
+            }
+        }*/
+        return -1;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if ((obj != null) && (obj instanceof BinarySearchTree)) {
+            BinarySearchTree<E> bst2 = (BinarySearchTree<E>) obj;
+            if (bst2.root.equals(root)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     
     /**
      * Inner class of nodes of the Binary Search Tree
@@ -235,6 +252,18 @@ public class BinarySearchTree<E extends Comparable<E>> {
         @Override
         public String toString() {
             return element.toString();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if ((obj != null) && (obj instanceof Node)) {
+                Node<E> node2 = (Node<E>)obj;
+                if (element.equals(node2.element) && parent.equals(node2.parent)
+                        && rightSon.equals(node2.rightSon) && leftSon.equals(node2.leftSon)) {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
